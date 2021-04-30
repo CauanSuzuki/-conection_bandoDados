@@ -1,33 +1,29 @@
 const models = require("../models");
 
-const tabelaUsuario = models.Usuario;
-const endereco = models.Endereco
+const tabelaFornecedor = models.Fornecedor;
 
 exports.listar = async (req, res) => {
-  const usuarios = await tabelaUsuario.findAll(
-    {
-    include: ["enderecos","pedidos"]
-  }
-  );
-
-  return res.json(usuarios);
+  const fornecedor = await tabelaFornecedor.findAll({
+    include: "produtos",
+  });
+  return res.json(fornecedor);
 };
 
 exports.criar = async (req, res) => {
-  const usuario = await tabelaUsuario.create(req.body);
+  const fornecedor = await tabelaFornecedor.create(req.body);
 
-  return res.json(usuario);
+  return res.json(fornecedor);
 };
 
 exports.deletar = async (req, res) => {
-  const variavel = await tabelaUsuario.findAll({
+  const variavel = await tabelaFornecedor.findAll({
     where: {
       id: req.params.id,
     },
   });
   console.log(variavel.length);
   if (variavel.length !== 0) {
-    const usuario = await tabelaUsuario.destroy({
+    const fornecedor = await tabelaFornecedor.destroy({
       where: { id: req.params.id },
     });
     return res.json({ mensage: "Deletado" });
@@ -37,17 +33,17 @@ exports.deletar = async (req, res) => {
 };
 
 exports.alterar = async (req, res) => {
-  const variavel = await tabelaUsuario.findAll({
+  const variavel = await tabelaFornecedor.findAll({
     where: {
       id: req.params.item,
     },
   });
   if (variavel.length !== 0) {
-    const usuario = await tabelaUsuario.update(
+    const fornecedor = await tabelaFornecedor.update(
       {
         nome: req.body.nome,
-        login: req.body.login,
-        senha: req.body.senha,
+        cnpj: req.body.cnpj,
+        categoria: req.body.categoria,
       },
       {
         where: {

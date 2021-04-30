@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
+const { dialect } = require("../config/database");
 const basename = path.basename(__filename);
 const config = require(__dirname + "/../config/database");
 const db = {};
@@ -11,7 +12,11 @@ const sequelize = new Sequelize(
   config.database,
   config.username,
   config.password,
-  config
+  {
+    host: config.host,
+    dialect: config.dialect,
+    port: config.port
+  }
 );
 
 fs.readdirSync(__dirname)

@@ -7,18 +7,30 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
       },
+
       nome: DataTypes.STRING,
       login: DataTypes.STRING,
       senha: DataTypes.STRING,
+      sexo: DataTypes.STRING,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
     },
+
     {
       tableName: "usuario",
     }
   );
 
-  Usuario.associate = (models) => {};
+  Usuario.associate = (models) =>{
+    Usuario.hasMany(models.Endereco, {
+      foreignKey: "usuarioId",
+      as: "enderecos",
+    });
+    Usuario.hasMany(models.Pedido, {
+      foreignKey: "usuarioId",
+      as: "pedidos",
+    });
+  };
 
   return Usuario;
 };
