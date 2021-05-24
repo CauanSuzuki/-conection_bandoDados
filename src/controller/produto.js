@@ -1,14 +1,9 @@
 const models = require("../models");
 
 const tabelaProduto = models.Produto;
-const fornecedor = models.fornecedor;
 
 exports.listar = async (req, res) => {
-  const produtos = await tabelaProduto.findAll(
-    {
-    include: "fornecedor",
-  }
-  );
+  const produtos = await tabelaProduto.findAll();
 
   return res.json(produtos);
 };
@@ -36,26 +31,26 @@ exports.deletar = async (req, res) => {
   }
 };
 
-exports.alterar = async (req, res) => {
-  const variavel = await tabelaProduto.findAll({
-    where: {
-      id: req.params.item,
-    },
-  });
-  if (variavel.length !== 0) {
-    const produto = await tabelaProduto.update(
-      {
-        nome: req.body.nome,
-        modelo: req.body.modelo,
-        preco: req.body.preco,
-        quantidade: req.body.quantidade,
-      },
-      {
-        where: { id: req.params.item },
-      }
-    );
-    return res.json({ mensage: "Alterado com suscesso" });
-  } else {
-    return res.json({ mensage: "Comando inválido" });
-  }
-};
+// exports.alterar = async (req, res) => {
+//   const variavel = await tabelaProduto.findAll({
+//     where: {
+//       id: req.params.item,
+//     },
+//   });
+//   if (variavel.length !== 0) {
+//     const produto = await tabelaProduto.update(
+//       {
+//         nome: req.body.nome,
+//         modelo: req.body.modelo,
+//         preco: req.body.preco,
+//         quantidade: req.body.quantidade,
+//       },
+//       {
+//         where: { id: req.params.item },
+//       }
+//     );
+//     return res.json({ mensage: "Alterado com suscesso" });
+//   } else {
+//     return res.json({ mensage: "Comando inválido" });
+//   }
+// };

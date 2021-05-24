@@ -9,15 +9,6 @@ module.exports = {
         primaryKey: true,
       },
 
-      fornecedorId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "fornecedor",
-          key: "id",
-        },
-      },
-
       nome: Sequelize.STRING,
       modelo: Sequelize.STRING,
       preco: Sequelize.REAL,

@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Produto = sequelize.define(
-    "Produto", //modo como vou acesar no relacionamentos
+    "Produto", 
     {
       id: {
         type: DataTypes.INTEGER,
@@ -16,14 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "produto",
     }
   );
-
-  Produto.associate = (models) => {
-    console.log(models);
-    Produto.belongsTo(models.Fornecedor, {
-      foreignKey: "fornecedorId",
-      as: "fornecedor",
-    });
-  };
 
   return Produto;
 };
