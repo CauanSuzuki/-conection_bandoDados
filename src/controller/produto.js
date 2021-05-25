@@ -23,7 +23,7 @@ exports.deletar = async (req, res) => {
   console.log(variavel.length);
   if (variavel.length !== 0) {
     const produto = await tabelaProduto.destroy({
-      where: { id: req.params.id },
+      where: { id: Number(req.params.id) },
     });
     return res.json({ mensage: "Deletado" });
   } else {
@@ -31,26 +31,26 @@ exports.deletar = async (req, res) => {
   }
 };
 
-// exports.alterar = async (req, res) => {
-//   const variavel = await tabelaProduto.findAll({
-//     where: {
-//       id: req.params.item,
-//     },
-//   });
-//   if (variavel.length !== 0) {
-//     const produto = await tabelaProduto.update(
-//       {
-//         nome: req.body.nome,
-//         modelo: req.body.modelo,
-//         preco: req.body.preco,
-//         quantidade: req.body.quantidade,
-//       },
-//       {
-//         where: { id: req.params.item },
-//       }
-//     );
-//     return res.json({ mensage: "Alterado com suscesso" });
-//   } else {
-//     return res.json({ mensage: "Comando inválido" });
-//   }
-// };
+exports.alterar = async (req, res) => {
+  const variavel = await tabelaProduto.findAll({
+    where: {
+      id: req.params.ite,
+    },
+  });
+  if (variavel.length !== 0) {
+    const produto = await tabelaProduto.update(
+      {
+        nome: req.body.nome,
+        modelo: req.body.modelo,
+        preco: req.body.preco,
+        quantidade: req.body.quantidade,
+      },
+      {
+        where: { id: Number(req.params.item) },
+      }
+    );
+    return res.json({ mensage: "Alterado com suscesso" });
+  } else {
+    return res.json({ mensage: "Comando inválido" });
+  }
+};
