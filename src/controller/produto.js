@@ -1,12 +1,20 @@
 const models = require("../models");
+const produto = require("../models/produto");
 
 const tabelaProduto = models.Produto;
 
 exports.listar = async (req, res) => {
-  const produtos = await tabelaProduto.findAll();
+  const produtos = await tabelaProduto.findAll({ order: [["id", "ASC"]] });
 
   return res.json(produtos);
 };
+
+// SELECT
+//   *
+//   FROM
+//   aluno
+//   ORDER BY
+// nome
 
 exports.criar = async (req, res) => {
   const produto = await tabelaProduto.create(req.body);
@@ -17,7 +25,7 @@ exports.criar = async (req, res) => {
 exports.deletar = async (req, res) => {
   const variavel = await tabelaProduto.findAll({
     where: {
-      id: req.params.id,
+      id: Number(req.params.id),
     },
   });
   console.log(variavel.length);
@@ -34,7 +42,7 @@ exports.deletar = async (req, res) => {
 exports.alterar = async (req, res) => {
   const variavel = await tabelaProduto.findAll({
     where: {
-      id: req.params.ite,
+      id: Number(req.params.item),
     },
   });
   if (variavel.length !== 0) {
@@ -49,6 +57,7 @@ exports.alterar = async (req, res) => {
         where: { id: Number(req.params.item) },
       }
     );
+    console.log(req.body);
     return res.json({ mensage: "Alterado com suscesso" });
   } else {
     return res.json({ mensage: "Comando inválido" });
