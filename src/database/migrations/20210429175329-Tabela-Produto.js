@@ -11,7 +11,7 @@ module.exports = {
 
       nome: Sequelize.STRING,
       modelo: Sequelize.STRING,
-      preco: Sequelize.REAL,
+      preco: Sequelize.DECIMAL(10,2),
       quantidade: Sequelize.BIGINT,
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,

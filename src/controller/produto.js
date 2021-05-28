@@ -9,12 +9,11 @@ exports.listar = async (req, res) => {
   return res.json(produtos);
 };
 
-// SELECT
-//   *
-//   FROM
-//   aluno
-//   ORDER BY
-// nome
+exports.listarUm = async (req, res) => {
+  const produto = await tabelaProduto.findByPk(req.params.id);
+
+  return res.json(produto);
+};
 
 exports.criar = async (req, res) => {
   const produto = await tabelaProduto.create(req.body);
@@ -32,6 +31,20 @@ exports.deletar = async (req, res) => {
   if (variavel.length !== 0) {
     const produto = await tabelaProduto.destroy({
       where: { id: Number(req.params.id) },
+    });
+    return res.json({ mensage: "Deletado" });
+  } else {
+    return res.json({ Mensage: "Comando inválido" });
+  }
+};
+
+exports.deletarTodos = async (req, res) => {
+  const variavel = await tabelaProduto.findAll();
+  console.log(variavel.length);
+  if (variavel.length !== 0) {
+    const produto = await tabelaProduto.destroy({
+      where: {},
+      truncate: { cascade: true },
     });
     return res.json({ mensage: "Deletado" });
   } else {
