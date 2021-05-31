@@ -44,12 +44,21 @@ exports.deletarTodos = async (req, res) => {
   if (variavel.length !== 0) {
     const produto = await tabelaProduto.destroy({
       where: {},
-      truncate: { cascade: true },
     });
     return res.json({ mensage: "Deletado" });
   } else {
     return res.json({ Mensage: "Comando inválido" });
   }
+};
+
+exports.deletarSelecionados = async (req, res) => {
+  const id = req.params.id;
+  const deletar = await tabelaProduto.destroy({
+    where: {
+      id: Number(id),
+    },
+  });
+  return res.json({ mensage: "Deletado" });
 };
 
 exports.alterar = async (req, res) => {

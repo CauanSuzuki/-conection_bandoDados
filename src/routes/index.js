@@ -10,5 +10,6 @@ router.post("/produto", controllerProduto.criar);
 router.delete("/produto/:id", controllerProduto.deletar);
 router.put("/produto/:item", controllerProduto.alterar);
 router.delete("/produto", controllerProduto.deletarTodos);
+router.delete("/prod/:id", controllerProduto.deletarSelecionados)
 
 module.exports = router;
